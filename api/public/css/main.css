@@ -1,0 +1,54 @@
+body {
+    font: 1.4em "Lucida Grande", Helvetica, Arial, sans-serif;
+    overflow-y: scroll;
+}
+main {
+    margin-top:70px;
+}
+#timeline {
+    width: 992px;
+}
+.timeline-container {
+    height: 500px;
+}
+.timeline-left {
+    text-align: right;
+}
+.timeline-username {
+    padding: 0 52px 0 0;
+}
+.timeline-inner {
+    background: #e0e1e2;
+    /*border: 1px solid rgba(0,0,0,.1);*/
+    border-width: 0 1px;
+    min-width: 240px;
+    max-width: 512px;
+    padding: 16px 32px;
+}
+.timeline-img {
+    width: 440px;
+    height: 440px;
+}
+.navbar.center .navbar-inner {
+    text-align: center;
+}
+.navbar.center .navbar-inner .nav {
+    display:inline-block;
+    float: none;
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
