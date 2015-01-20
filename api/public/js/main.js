@@ -59,16 +59,10 @@ $(document).ready(function($) {
             $('[data-dismiss="modal"').on('click', function(e) {
                 self.status("");
             });
-            // Adds an eventlisterner for loading new images from rest api
-            $(window).on('scroll', function(event) {
-                event.preventDefault();
-                var yScrollPos = window.pageYOffset,
-                    magicNumber = 1000;
-                console.log(yScrollPos);
-                if (yScrollPos > self.current) {
-                    self.refresh(this.limit, 10);
-                    self.current += self.startLoadPos + magicNumber;
-                    console.log(self.current);
+
+            $(window).scroll(function(){
+                if ($(window).scrollTop() == $(document).height()-$(window).height()){
+                    self.refresh(10, 10);
                 }
             });
         },
@@ -89,7 +83,7 @@ $(document).ready(function($) {
                         $('<div>', {'class': 'timeline-left col-md-4'}).append(
                             $('<p>', {text: data.time})
                         )
-                        .append($('<p>', {'class': 'timline-user', 'text': data.username}))
+                        .append($('<p>', {'class': 'timeline-user', 'text': data.username}))
                     )
                     .append(
                         $('<div>', {'class': 'timeline-right col-md-8'}).append(
@@ -98,7 +92,7 @@ $(document).ready(function($) {
                                     .addClass('timeline-img')
                                 )
                         )
-                    ).fadeIn("slow")
+                    ).fadeIn(1500)
                     $('#timeline').append(ele);
 
                 });
@@ -107,7 +101,7 @@ $(document).ready(function($) {
                 $('#timeline').text('Failed to load files');
                 console.log("error");
             });
-            console.log(parseInt(this.limit));
+            // console.log(parseInt(this.limit));
         },
 
         status :  function(message) {
