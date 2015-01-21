@@ -2,54 +2,28 @@
 <html lang="sv">
 <head>
     <meta charset="utf-8">
-    <title>MyGram frontpage</title>
+    <title>Birca frontpage</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
     <header>
-        <i></i>
+        <i>Birca</i>
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="http://www.student.bth.se/~jokd13/javascript/project/DV1483-Project/api/public/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
                 </div>
-                <div id="navbar" class="nav navbar-nav navbar-right">
-                    <ul class="nav navbar-nav">
-                        <li>
-                             <a href="#" data-toggle="modal" data-target="#myModal">Upload file</a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </nav>
     </header>
     <main class="container">
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form id="uploadForm" enctype="multipart/form-data" action="/api/" method="post">
-                          <input type="file" id="userPhotoInput" name="userPhoto" />
-                          <span id="status"></span>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </div>
-            </div>
-        </div>
+        <p id="status"></p>
+        <div id="dropzone">
 
-            <div id="timeline">
-            </div>
+        </div>
+        <div id="timeline">
+        </div>
         </div>
     </main>
     <footer id="footer">

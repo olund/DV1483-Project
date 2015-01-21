@@ -12,7 +12,6 @@ process.env.TMPDIR = path.join(__dirname, 'tmp');
 var homeController = require('./app/Controllers/HomeController')
 // Main apiController
 var image = require('./app/Controllers/ImageController')
-app.use(multer());
 
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -1,5 +1,22 @@
-var express = require('express');
-var app = express.Router();
+
+var express     =    require("express");
+var multer      =    require('multer');
+var done        =    false;
+var app     = express.Router();
+
+app.use(multer({ dest: './public/uploads',
+    rename: function (fieldname, filename) {
+        return filename+Date.now();
+    },
+    onFileUploadStart: function (file) {
+        console.log(file.originalname + ' is starting ...')
+    },
+    onFileUploadComplete: function (file) {
+        console.log(file.fieldname + ' uploaded to  ' + file.path)
+        done=true;
+    }
+}));
+
 
 app.get('/:offset/:from', function(req, res) {
     // TODO get stuff from db
@@ -43,35 +60,13 @@ app.get('/:offset/:from', function(req, res) {
     }, null, 3));
 });
 
-/* POST for app */
-app.post('/', function(req, res) {
 
-    var serverPath  = '/images/' + req.files.userPhoto.name,
-        saveDir     =  __dirname + '/../../public/';
-
-    require('fs').rename(
-    req.files.userPhoto.path,
-    saveDir + serverPath,
-    function(error) {
-        if(error) {
-            console.log(error);
-            res.send({
-                error: 'Ah crap! Something bad happened'
-            });
-            return;
-        }
-
-        res.send({
-            path: serverPath
-        });
+app.post('/',function(req,res){
+    console.log(Date.now);
+    if (done == true) {
+        console.log(req.files);
+        res.end("File uploaded.");
     }
-    );
-});
-
-
-/* DELETE for deleteing */
-app.delete('/', function(req, res) {
-    res.send('delete sent')
 });
 
 module.exports = app;

@@ -13,7 +13,10 @@ $(document).ready(function($) {
 
             var timerId,
                 csrftoken = this.getCookie('csrftoken'),
-                self = this;
+                self = this,
+                holder  = $('#dropzone'),
+                state   = $('state'),
+                doc     = $(document);
 
             $.ajaxSetup({
                 crossDomain: false, // obviates need for sameOrigin test
@@ -23,6 +26,73 @@ $(document).ready(function($) {
                     }
                 }
             });
+
+            /* Removes default behavior for document
+             * on drop event and drag
+            */
+            doc.on('dragenter', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            doc.on('dragover', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            doc.on('drop', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+
+            // User dont support the upload function
+            if (typeof window.FileReader === 'undefined') {
+                state.html('DU SUGER SOM INTE HAR SHIT');
+            }
+
+            holder.on('dragenter', function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                holder.addClass('hover');
+                return false;
+            });
+
+            holder.on('dragleave', function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                holder.removeClass('hover');
+                return false;
+            });
+
+            // This is also the upload event
+            holder.on('drop', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                holder.removeClass('hover');
+                var file     = e.originalEvent.dataTransfer.files[0],
+                    formData = new FormData();
+
+                formData.append('file', file);
+                $.ajax({
+                    type: "POST",
+                    url: '/api/',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success : function() {
+                        console.log('Successfully sent :');
+                        console.log(file);
+                        state.html('Successfully uploaded file')
+                    },
+                    error : function() {
+                        console.log('Failed');
+                    }
+
+                });
+
+
+
+                return false;
+             });
+
 
             $('#uploadForm').submit(function() {
                 self.status('Uploading the file ...');
@@ -56,12 +126,11 @@ $(document).ready(function($) {
                 }
             }, 500);
 
-            $('[data-dismiss="modal"').on('click', function(e) {
-                self.status("");
-            });
 
             $(window).scroll(function(){
-                if ($(window).scrollTop() == $(document).height()-$(window).height()){
+                var w   = $(window),
+                    doc = $(document);
+                if (w.scrollTop() == doc.height()-w.height()){
                     self.refresh(10, 10);
                 }
             });
@@ -101,7 +170,6 @@ $(document).ready(function($) {
                 $('#timeline').text('Failed to load files');
                 console.log("error");
             });
-            // console.log(parseInt(this.limit));
         },
 
         status :  function(message) {

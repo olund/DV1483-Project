@@ -19,7 +19,6 @@ main {
 }
 .timeline-inner {
     background: #e0e1e2;
-    /*border: 1px solid rgba(0,0,0,.1);*/
     border-width: 0 1px;
     min-width: 240px;
     max-width: 512px;
@@ -51,4 +50,16 @@ main {
     cursor: pointer;
     opacity: 0;
     filter: alpha(opacity=0);
+}
+#dropzone {
+    height: 200px;
+    border:1px solid;
+    -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+}
+
+#dropzone.hover {
+    background: #000;
 }
