@@ -70,13 +70,14 @@ $(document).ready(function($) {
                 var file     = e.originalEvent.dataTransfer.files[0],
                     formData = new FormData();
 
-                formData.append('file', file);
+                formData.append('file', file)
                 $.ajax({
                     type: "POST",
                     url: '/api/',
                     data: formData,
                     processData: false,
                     contentType: false,
+                    dataType: 'multipart/form-data',
                     success : function() {
                         console.log('Successfully sent :');
                         console.log(file);
