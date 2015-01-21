@@ -1,7 +1,6 @@
 $(document).ready(function($) {
     'use strict';
 
-
     var myGram = {
         limit : 0,
         perPage : 10,
@@ -159,22 +158,13 @@ $(document).ready(function($) {
             })
             .done(function(data) {
                 $.each(data, function(i, data) {
-                    var ele = $('<div>', {'class': 'timeline-container'}).hide().append(
-                        $('<div>', {'class': 'timeline-left col-md-4'}).append(
-                            $('<p>', {text: data.time})
-                        )
-                        .append($('<p>', {'class': 'timeline-user', 'text': data.username}))
-                    )
-                    .append(
-                        $('<div>', {'class': 'timeline-right col-md-8'}).append(
-                            $('<div>', {'class': 'timeline-inner'}).append(
-                                    $('<img>').attr('src', data.img)
-                                    .addClass('timeline-img')
-                                )
-                        )
-                    ).fadeIn(1500)
-                    $('#timeline').append(ele);
-
+                    $('#timeline').append(
+                        $('<section>').hide()
+                        .append($('<img />').attr({src : data.img})
+                        .appendTo($('<a />')
+                        .attr({href:data.img})))
+                        .append($('<abbr>', {'class': data.time, 'text': jQuery.timeago(data.time)})).fadeIn(1500);
+                    );
                 });
             })
             .fail(function() {
@@ -217,7 +207,7 @@ $(document).ready(function($) {
         removeDropzone : function (ele) {
             console.log("removeDropzone: zone är aktive: " + !ele.hasClass('active'));
             if (ele.hasClass('active')) {
-                ele.fadeOut(1500, function () {
+                ele.fadeOut(3000, function () {
                     $(this).removeClass('drop-here active');
 
                 });

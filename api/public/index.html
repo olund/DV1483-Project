@@ -3,36 +3,53 @@
 <head>
     <meta charset="utf-8">
     <title>Birca frontpage</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
     <header>
-        <i>Birca</i>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="http://www.student.bth.se/~jokd13/javascript/project/DV1483-Project/api/public/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a>
-                </div>
-            </div>
+        <div class="cover-image">
+            <h1>Birca</h1>
+        </div>
+        <nav role='navigation'>
+            <a href="#">Home</a>
+            <a href="https://github.com/foikila/DV1483-Project">About</a>
         </nav>
     </header>
+
     <div id="dropzone" style="display: none;">
         <span>Drop here</span>
     </div>
-    <main class="container">
-        <p id="status"></p>
-
-        <div id="timeline">
+    <main id="timeline">
+        <div class='flashy-success'>
+            This is a success message
         </div>
-        </div>
+        <section class="timeline-container" style="display: block;">
+            <a target="_blank" href="http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg"><img src="http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg"></a>
+            <abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
+        </section>
+        <section class="timeline-container" style="display: block;">
+            <a target="_blank" href="http://localhost:3000/uploads/babe11421801041031.jpg"><img src="http://localhost:3000/uploads/babe11421801041031.jpg"></a>
+            <abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
+        </section>
+        <section class="timeline-container" style="display: block;">
+            <a target="_blank" href="http://localhost:3000/uploads/21421848418238.PNG"><img src="http://localhost:3000/uploads/21421848418238.PNG"></a>
+            <abbr class="timeago" title="2011-12-17T09:24:17Z">December 17, 2011</abbr>
+        </section>
     </main>
-    <footer id="footer">
-        Copyright (c) 2015
+    <footer>
+        <p>Copyright (c) 2015</p>
     </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="js/jquery.form.js"></script>
+    <script src="js/timeago.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/header.js"></script>
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+        $(".timeago").timeago();
+    });
+</script>
 </body>
 </html>

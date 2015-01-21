@@ -30,32 +30,32 @@ app.get('/:offset/:from', function(req, res) {
         '1' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'username',
-            time: 'time ago'
+            time: '2011-12-17T09:24:17Z'
         },
         '2' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'use23rname',
-            time: 'time ago'
+            time: '2011-12-17T09:24:17Z'
         },
         '3' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'utre',
-            time: 'time ago'
+            time: '2011-12-17T09:24:17Z'
         },
         '4' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'username',
-            time: 'time ago'
+            time: '2011-12-17T09:24:17Z'
         },
         '5' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'use23rname',
-            time: 'time ago'
+            time: '2011-12-17T09:24:17Z'
         },
         '6' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'utre',
-            time: 'time ago'
+            time: '2011-12-17T09:24:17Z'
         }
     }, null, 3));
 });
