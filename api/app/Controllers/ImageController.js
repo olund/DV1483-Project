@@ -22,40 +22,39 @@ app.get('/:offset/:from', function(req, res) {
     // TODO get stuff from db
     var offset  = req.params.offset,
         from    = req.params.from;
-    console.log(offset);
-    console.log(from);
-
+    /* console.log(offset);
+    console.log(from);*/
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({
         '1' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'username',
-            time: '2011-12-17T09:24:17Z'
+            time: new Date().toISOString(),
         },
         '2' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'use23rname',
-            time: '2011-12-17T09:24:17Z'
+            time: new Date().toISOString(),
         },
         '3' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'utre',
-            time: '2011-12-17T09:24:17Z'
+            time: new Date().toISOString(),
         },
         '4' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'username',
-            time: '2011-12-17T09:24:17Z'
+            time: new Date().toISOString(),
         },
         '5' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'use23rname',
-            time: '2011-12-17T09:24:17Z'
+            time: new Date().toISOString(),
         },
         '6' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'utre',
-            time: '2011-12-17T09:24:17Z'
+            time: new Date().toISOString(),
         }
     }, null, 3));
 });

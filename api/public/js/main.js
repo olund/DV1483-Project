@@ -13,9 +13,7 @@ $(document).ready(function($) {
                 csrftoken = this.getCookie('csrftoken'),
                 self = this,
                 holder  = $('#dropzone'),
-                state   = $('state'),
                 doc     = $(document);
-
 
             $.ajaxSetup({
                 crossDomain: false, // obviates need for sameOrigin test
@@ -25,11 +23,6 @@ $(document).ready(function($) {
                     }
                 }
             });
-
-            // User dont support the upload function
-            if (typeof window.FileReader === 'undefined') {
-                state.text('DU SUGER SOM INTE HAR SHIT');
-            }
 
             /* Removes default behavior for document
              * on drop event and drag
@@ -79,65 +72,27 @@ $(document).ready(function($) {
 
                 formData.append('file', file);
 
-
-
                 $.ajax({
                     type: "POST",
                     url: '/api/',
                     data: formData,
                     processData: false,
                     contentType: false,
-                    dataType: 'multipart/form-data',
-                    success : function() {
-                        console.log('Successfully sent :');
-                        console.log(file);
-                        state.html('Successfully uploaded file')
+                    success : function(response) {
+                        console.log('Successfully sent');
+                        self.status('Successfully uploaded file!')
                     },
-                    error : function() {
-                        console.log('Failed');
+                    error : function(xhr, ajaxOptions, thrownError) {
+
+                        console.log("error: " + thrownError);
                     }
 
-                }).always(function() {
-                    self.removeDropzone(holder);
                 });
+                self.removeDropzone(holder);
                 return false;
              });
 
-
-            $('#uploadForm').submit(function() {
-                self.status('Uploading the file ...');
-
-                $(this).ajaxSubmit({
-                    error: function(xhr) {
-                        self.status('Error: ' + xhr.status);
-                    },
-
-                    success: function(response) {
-                        if(response.error) {
-                            self.status('Opps, something bad happened');
-                            return;
-                        }
-
-                        var imageUrlOnServer = response.path;
-                        self.status('Success, file uploaded to:' + imageUrlOnServer);
-                        $('#uploadForm').trigger("reset");
-                    }
-                });
-
-                // Have to stop the form from submitting and causing
-                // a page refresh - don't forget
-                return false;
-            });
-            // Check to see when a user has selected a file
-            timerId = setInterval(function() {
-                if($('#userPhotoInput').val() !== '') {
-                    clearInterval(timerId);
-                    $('#uploadForm').submit();
-                }
-            }, 500);
-
-
-            $(window).scroll(function(){
+            $(window).scroll(function() {
                 var w   = $(window),
                     doc = $(document);
                 if (w.scrollTop() == doc.height()-w.height()){
@@ -163,7 +118,7 @@ $(document).ready(function($) {
                         .append($('<img />').attr({src : data.img})
                         .appendTo($('<a />')
                         .attr({href:data.img})))
-                        .append($('<abbr>', {'class': data.time, 'text': jQuery.timeago(data.time)})).fadeIn(1500);
+                        .append($('<abbr>', {'class': data.time, 'text': jQuery.timeago(data.time)})).fadeIn(1500)
                     );
                 });
             })
@@ -215,8 +170,8 @@ $(document).ready(function($) {
         },
 
         status :  function(message) {
-            console.log(message);
-            $('#status').text(message);
+
+            $('<div class="flashy-success">').text(message).append('#timeline');
         }
     }
 

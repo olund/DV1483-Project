@@ -132,7 +132,9 @@ p, abbr  {
     line-height: 3;
     color: #7f8c8d;
 }
-
+abbr {
+    cursor: default;
+}
 .wrapper {
     width: 800px;
     margin: 0 auto;
