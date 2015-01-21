@@ -6,14 +6,14 @@ var app     = express.Router();
 
 app.use(multer({ dest: './public/uploads',
     rename: function (fieldname, filename) {
-        return filename+Date.now();
+        return filename + Date.now();
     },
     onFileUploadStart: function (file) {
         console.log(file.originalname + ' is starting ...')
     },
     onFileUploadComplete: function (file) {
         console.log(file.fieldname + ' uploaded to  ' + file.path)
-        done=true;
+        done = true;
     }
 }));
 
@@ -60,11 +60,9 @@ app.get('/:offset/:from', function(req, res) {
     }, null, 3));
 });
 
-
 app.post('/',function(req,res){
     console.log(Date.now);
     if (done == true) {
-        console.log(req.files);
         res.end("File uploaded.");
     }
 });

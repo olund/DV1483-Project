@@ -5,8 +5,7 @@ $(document).ready(function($) {
     var myGram = {
         limit : 0,
         perPage : 10,
-        startLoadPos: 2000,
-        current : 0,
+        holder  : $('#dropzone'),
 
         init : function(config) {
             this.config = config;
@@ -18,6 +17,7 @@ $(document).ready(function($) {
                 state   = $('state'),
                 doc     = $(document);
 
+
             $.ajaxSetup({
                 crossDomain: false, // obviates need for sameOrigin test
                 beforeSend: function(xhr, settings) {
@@ -27,38 +27,46 @@ $(document).ready(function($) {
                 }
             });
 
+            // User dont support the upload function
+            if (typeof window.FileReader === 'undefined') {
+                state.text('DU SUGER SOM INTE HAR SHIT');
+            }
+
             /* Removes default behavior for document
              * on drop event and drag
             */
-            doc.on('dragenter', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-            });
-            doc.on('dragover', function (e) {
-                e.stopPropagation();
-                e.preventDefault();
-            });
             doc.on('drop', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
             });
 
-            // User dont support the upload function
-            if (typeof window.FileReader === 'undefined') {
-                state.html('DU SUGER SOM INTE HAR SHIT');
-            }
+            doc.on('dragenter', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                self.displayDropzone(holder);
+            });
+            doc.on('dragover', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+            });
+            doc.on('dragleave', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                self.removeDropzone(holder);
+            });
 
-            holder.on('dragenter', function(event) {
-                event.stopPropagation();
-                event.preventDefault();
+            holder.on('dragenter', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
                 holder.addClass('hover');
                 return false;
             });
 
-            holder.on('dragleave', function(event) {
-                event.stopPropagation();
-                event.preventDefault();
+            holder.on('dragleave', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
                 holder.removeClass('hover');
+                self.removeDropzone(holder);
                 return false;
             });
 
@@ -70,7 +78,10 @@ $(document).ready(function($) {
                 var file     = e.originalEvent.dataTransfer.files[0],
                     formData = new FormData();
 
-                formData.append('file', file)
+                formData.append('file', file);
+
+
+
                 $.ajax({
                     type: "POST",
                     url: '/api/',
@@ -87,10 +98,9 @@ $(document).ready(function($) {
                         console.log('Failed');
                     }
 
+                }).always(function() {
+                    self.removeDropzone(holder);
                 });
-
-
-
                 return false;
              });
 
@@ -173,11 +183,6 @@ $(document).ready(function($) {
             });
         },
 
-        status :  function(message) {
-            console.log(message);
-            $('#status').text(message);
-        },
-
         //Ajax call
         csrfSafeMethod: function (method) {
             // these HTTP methods do not require CSRF protection
@@ -198,6 +203,30 @@ $(document).ready(function($) {
                 }
             }
             return cookieValue;
+        },
+
+        displayDropzone : function (ele) {
+            console.log("displayDropzone: zone är aktive: " + !ele.hasClass('active'));
+            if (! ele.hasClass('active')) {
+                ele.fadeIn('slow', function () {
+                    $(this).addClass('drop-here active');
+                });
+            }
+        },
+
+        removeDropzone : function (ele) {
+            console.log("removeDropzone: zone är aktive: " + !ele.hasClass('active'));
+            if (ele.hasClass('active')) {
+                ele.fadeOut(1500, function () {
+                    $(this).removeClass('drop-here active');
+
+                });
+            }
+        },
+
+        status :  function(message) {
+            console.log(message);
+            $('#status').text(message);
         }
     }
 

@@ -5,17 +5,12 @@ var path            = require('path')
 var bodyParser      = require('body-parser');
 var multer          = require('multer');
 
-// setting up the tempfplder for the image uploads
-process.env.TMPDIR = path.join(__dirname, 'tmp');
-
 // for testing
 var homeController = require('./app/Controllers/HomeController')
 // Main apiController
 var image = require('./app/Controllers/ImageController')
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.set('uploadDir', './public/uploads');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
