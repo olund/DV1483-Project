@@ -1,7 +1,7 @@
 $(document).ready(function($) {
     'use strict';
 
-    var myGram = {
+    window.myGram = {
         limit : 0,
         perPage : 10,
         holder  : $('#dropzone'),
@@ -13,7 +13,9 @@ $(document).ready(function($) {
                 csrftoken = this.getCookie('csrftoken'),
                 self = this,
                 holder  = $('#dropzone'),
-                doc     = $(document);
+                doc     = $(document),
+                section = $('#timeline'),
+                w       = $(window);
 
             $.ajaxSetup({
                 crossDomain: false, // obviates need for sameOrigin test
@@ -31,11 +33,9 @@ $(document).ready(function($) {
                 e.stopPropagation();
                 e.preventDefault();
             });
-
             doc.on('dragenter', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                self.displayDropzone(holder);
             });
             doc.on('dragover', function (e) {
                 e.stopPropagation();
@@ -44,7 +44,11 @@ $(document).ready(function($) {
             doc.on('dragleave', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                self.removeDropzone(holder);
+            });
+
+            section.on('dragenter', function(e) {
+                console.log('enter');
+                self.displayDropzone(holder);
             });
 
             holder.on('dragenter', function(e) {
@@ -58,7 +62,6 @@ $(document).ready(function($) {
                 e.stopPropagation();
                 e.preventDefault();
                 holder.removeClass('hover');
-                self.removeDropzone(holder);
                 return false;
             });
 
@@ -66,7 +69,9 @@ $(document).ready(function($) {
             holder.on('drop', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
+
                 holder.removeClass('hover');
+
                 var file     = e.originalEvent.dataTransfer.files[0],
                     formData = new FormData();
 
@@ -79,22 +84,31 @@ $(document).ready(function($) {
                     processData: false,
                     contentType: false,
                     success : function(response) {
-                        console.log('Successfully sent');
-                        self.status('Successfully uploaded file!')
+                        holder.find('section').addClass('dropped')
+                            .find('h2').text('Uploading...');
+                        $('#timeline').find('section').remove();
+
+                        setTimeout(function () {
+                            $('section h2').text('Success!');
+                        }, 500);
+                        setTimeout(function () {
+                            self.refresh(10, 10);
+                        }, 500);
+                        setTimeout(function () {
+                            $('#dropzone').hide().text('Drop image here').removeClass('dropped');
+                        }, 10000);
                     },
                     error : function(xhr, ajaxOptions, thrownError) {
-
                         console.log("error: " + thrownError);
+                        holder.find('section').addClass('dropped-error')
+                            .find('h2').text('Failed!');
                     }
-
                 });
-                self.removeDropzone(holder);
-                return false;
-             });
 
-            $(window).scroll(function() {
-                var w   = $(window),
-                    doc = $(document);
+                return false;
+            });
+
+            w.scroll(function() {
                 if (w.scrollTop() == doc.height()-w.height()){
                     self.refresh(10, 10);
                 }
@@ -151,33 +165,20 @@ $(document).ready(function($) {
         },
 
         displayDropzone : function (ele) {
-            console.log("displayDropzone: zone är aktive: " + !ele.hasClass('active'));
-            if (! ele.hasClass('active')) {
-                ele.fadeIn('slow', function () {
-                    $(this).addClass('drop-here active');
-                });
-            }
-        },
-
-        removeDropzone : function (ele) {
-            console.log("removeDropzone: zone är aktive: " + !ele.hasClass('active'));
-            if (ele.hasClass('active')) {
-                ele.fadeOut(3000, function () {
-                    $(this).removeClass('drop-here active');
-
-                });
-            }
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            ele.fadeIn('slow', function () {
+                $(this).addClass('drop-here');
+            });
         },
 
         status :  function(message) {
-
             $('<div class="flashy-success">').text(message).append('#timeline');
         }
     }
 
     myGram.init();
-    myGram.refresh();
     myGram.refresh(10, 10);
+
 });
 
 

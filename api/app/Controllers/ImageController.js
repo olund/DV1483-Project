@@ -60,7 +60,6 @@ app.get('/:offset/:from', function(req, res) {
 });
 
 app.post('/',function(req,res){
-    console.log(Date.now);
     if (done == true) {
         res.end("File uploaded.");
     }
