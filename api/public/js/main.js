@@ -36,6 +36,7 @@ $(document).ready(function($) {
             doc.on('dragenter', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
+                self.displayDropzone(holder);
             });
             doc.on('dragover', function (e) {
                 e.stopPropagation();
@@ -46,10 +47,6 @@ $(document).ready(function($) {
                 e.preventDefault();
             });
 
-            section.on('dragenter', function(e) {
-                console.log('enter');
-                self.displayDropzone(holder);
-            });
 
             holder.on('dragenter', function(e) {
                 e.stopPropagation();
@@ -93,7 +90,7 @@ $(document).ready(function($) {
                         }, 500);
                         setTimeout(function () {
                             holder.fadeOut('slow', function() {
-                                $(this).hide().text('Drop image here').removeClass('dropped');
+                                $(this).removeClass('dropped').find('section h2').text('Drop image here');
                             });
                         }, 3000);
                     },
