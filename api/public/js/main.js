@@ -70,8 +70,8 @@ $(document).ready(function($) {
                 e.stopPropagation();
                 e.preventDefault();
 
-                holder.removeClass('hover');
-
+                holder.removeClass('hover')
+                    .find('section h2').text('Uploading...');
                 var file     = e.originalEvent.dataTransfer.files[0],
                     formData = new FormData();
 
@@ -84,19 +84,18 @@ $(document).ready(function($) {
                     processData: false,
                     contentType: false,
                     success : function(response) {
-                        holder.find('section').addClass('dropped')
-                            .find('h2').text('Uploading...');
-                        $('#timeline').find('section').remove();
-
+                        holder.find('section').addClass('dropped');
                         setTimeout(function () {
                             $('section h2').text('Success!');
                         }, 500);
                         setTimeout(function () {
-                            self.refresh(10, 10);
+                            self.refresh(1, 1, true);
                         }, 500);
                         setTimeout(function () {
-                            $('#dropzone').hide().text('Drop image here').removeClass('dropped');
-                        }, 10000);
+                            holder.fadeOut('slow', function() {
+                                $(this).hide().text('Drop image here').removeClass('dropped');
+                            });
+                        }, 3000);
                     },
                     error : function(xhr, ajaxOptions, thrownError) {
                         console.log("error: " + thrownError);
@@ -115,8 +114,8 @@ $(document).ready(function($) {
             });
         },
 
-        refresh: function (limit, perPage) {
-            console.log("Trigged! limit: " + limit);
+        refresh: function (limit, perPage, pretend) {
+            var pend = pretend || false;
             this.limit = this.limit + parseInt(limit);
             this.perPage = this.perPage + parseInt(perPage);
 
@@ -127,13 +126,16 @@ $(document).ready(function($) {
             })
             .done(function(data) {
                 $.each(data, function(i, data) {
-                    $('#timeline').append(
-                        $('<section>').hide()
-                        .append($('<img />').attr({src : data.img})
-                        .appendTo($('<a />')
-                        .attr({href:data.img})))
-                        .append($('<abbr>', {'class': data.time, 'text': jQuery.timeago(data.time)})).fadeIn(1500)
-                    );
+                    var ele =  $('<section class="content">').hide()
+                            .append($('<img />').attr({src : data.img})
+                            .appendTo($('<a />')
+                            .attr({href:data.img})))
+                            .append($('<abbr>', {'class': data.time, 'text': jQuery.timeago(data.time)})).fadeIn(1500);
+                    if (pend === true) {
+                        $('#timeline').prepend(ele);
+                    } else {
+                        $('#timeline').append(ele);
+                    }
                 });
             })
             .fail(function() {

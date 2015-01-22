@@ -22,8 +22,7 @@ app.get('/:offset/:from', function(req, res) {
     // TODO get stuff from db
     var offset  = req.params.offset,
         from    = req.params.from;
-    /* console.log(offset);
-    console.log(from);*/
+
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({
         '1' : {
@@ -35,7 +34,7 @@ app.get('/:offset/:from', function(req, res) {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'use23rname',
             time: new Date().toISOString(),
-        },
+        }/*
         '3' : {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'utre',
@@ -55,7 +54,7 @@ app.get('/:offset/:from', function(req, res) {
             img: 'http://photos-d.ak.instagram.com/hphotos-ak-xpa1/t51.2885-15/10623926_313491828861835_1654496837_n.jpg',
             username: 'utre',
             time: new Date().toISOString(),
-        }
+        }*/
     }, null, 3));
 });
 
