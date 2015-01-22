@@ -2,12 +2,12 @@ $(document).ready(function($) {
     'use strict';
 
     window.myGram = {
-        limit : 0,
-        perPage : 10,
+        current : 0,
         holder  : $('#dropzone'),
 
-        init : function(config) {
-            this.config = config;
+        init : function() {
+            if (!window.location.origin)
+                    window.location.origin = window.location.protocol+"//"+window.location.host;
 
             var timerId,
                 csrftoken = this.getCookie('csrftoken'),
@@ -68,13 +68,15 @@ $(document).ready(function($) {
                 e.preventDefault();
 
                 holder.removeClass('hover')
-                    .find('section h2').text('Uploading...');
+                    .find('section h2')
+                    .text('Uploading...');
+
                 var file     = e.originalEvent.dataTransfer.files[0],
                     formData = new FormData();
 
                 formData.append('file', file);
 
-                $.ajax({
+                jQuery.ajax({
                     type: "POST",
                     url: '/api/',
                     data: formData,
@@ -82,17 +84,22 @@ $(document).ready(function($) {
                     contentType: false,
                     success : function(response) {
                         holder.find('section').addClass('dropped');
+
                         setTimeout(function () {
                             $('section h2').text('Success!');
+                            self.current = 0;
+                            self.refresh(0, false, 600, 10);
                         }, 500);
-                        setTimeout(function () {
-                            self.refresh(1, 1, true);
-                        }, 500);
+
                         setTimeout(function () {
                             holder.fadeOut('slow', function() {
-                                $(this).find('section').removeClass('dropped').find('h2').text('Drop image here');
+                                $(this)
+                                    .find('section')
+                                    .removeClass('dropped')
+                                    .find('h2')
+                                    .text('Drop image here');
                             });
-                        }, 3000);
+                        }, 500);
                     },
                     error : function(xhr, ajaxOptions, thrownError) {
                         console.log("error: " + thrownError);
@@ -105,33 +112,72 @@ $(document).ready(function($) {
             });
 
             w.scroll(function() {
-                if (w.scrollTop() == doc.height()-w.height()){
-                    self.refresh(10, 10);
+                if (w.scrollTop() == doc.height() - w.height()){
+                    self.refresh(self.current);
                 }
             });
         },
 
-        refresh: function (limit, perPage, pretend) {
-            var pend = pretend || false;
-            this.limit = this.limit + parseInt(limit);
-            this.perPage = this.perPage + parseInt(perPage);
+        refresh: function (current, prepend, mili) {
+            var milisec = mili || 1500;
+            var pend = prepend || false;
+            console.log(pend);
+            console.log("current: " + this.current);
 
             $.ajax({
-                url: '/api/' + limit + '/' + perPage,
+                url: '/api/' + this.current + '/' + 10,
                 type: 'GET',
                 Type: 'json',
             })
             .done(function(data) {
-                $.each(data, function(i, data) {
-                    var ele =  $('<section class="content">').hide()
-                            .append($('<img />').attr({src : data.img})
-                            .appendTo($('<a />')
-                            .attr({href:data.img})))
-                            .append($('<abbr>', {'class': data.time, 'text': jQuery.timeago(data.time)})).fadeIn(1500);
-                    if (pend === true) {
-                        $('#timeline').prepend(ele);
-                    } else {
-                        $('#timeline').append(ele);
+                console.log(data);
+                console.log("prev current " + window.myGram.current);
+                // jquery is best int the world. neede d to select my global object....
+                // love jshell
+                window.myGram.current += data[data.length - 1].results;
+                console.log("after current " + window.myGram.current);
+                jQuery.each(data, function(i, data) {
+                    if (data.id) {
+                        var button = $('<a>', {'data-id': data.id, 'text': 'Report', 'class' : 'pull-right button'})
+                            .on('click', function(event) {
+                                $.ajax({
+                                    url: '/api/report/' + $(this).data('id'),
+                                    type: 'PUT',
+                                })
+                                .done(function() {
+                                    // ez stuff. let's keep it simple
+                                    alert('Reported!');
+                                    // visual suff. Should I have this?
+                                    /*var holder = $('#dropzone');
+                                    $("html, body").animate({ scrollTop: 0 }, "slow");
+                                        holder.fadeIn('slow', function () {
+                                            $(this)
+                                                .addClass('drop-here ')
+                                                .find('section')
+                                                .addClass('dropped-info')
+                                                .find('h2')
+                                                .text('Thank you for the report.');
+                                    });*/
+                                })
+                                .fail(function() {
+                                    alert('Error reporting!');
+                                });
+                            });
+
+                        var ele =  $('<section class="content">').hide()
+                                .append(
+                                    $('<img />').attr({src : window.location.origin + '/' +  data.path})
+                                )
+                                .append(
+                                        $('<abbr>', {'class': data.createdAt, 'text': jQuery.timeago(data.createdAt)})
+                                ).append(button)
+                                .fadeIn(milisec);
+
+                        if (pend === true) {
+                            $('#timeline').prepend(ele);
+                        } else {
+                            $('#timeline').append(ele);
+                        }
                     }
                 });
             })
@@ -176,8 +222,6 @@ $(document).ready(function($) {
     }
 
     myGram.init();
-    myGram.refresh(10, 10);
+    myGram.refresh(10, 0);
 
 });
-
-

@@ -18,26 +18,21 @@ time, mark, audio, video {
     font-size: 100%;
     vertical-align: baseline;
 }
-
 html {
     line-height: 1;
 }
-
 ol, ul {
     list-style: none;
 }
-
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
 caption, th, td {
     text-align: left;
     font-weight: normal;
     vertical-align: middle;
 }
-
 q, blockquote {
     quotes: none;
 }
@@ -45,21 +40,17 @@ q:before, q:after, blockquote:before, blockquote:after {
     content: "";
     content: none;
 }
-
 a img {
     border: none;
 }
-
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
     display: block;
 }
-
 * {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 body {
     background-color: #ecf0f1;
     font-family: helvetica, arial, sans-serif;
@@ -70,7 +61,6 @@ body {
     -webkit-transition: padding-top 0.5s ease;
     transition: padding-top 0.5s ease;
 }
-
 header {
     width: 100%;
     height: 300px;
@@ -84,6 +74,7 @@ header {
     -o-transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    z-index: 99;
 }
 header h1 {
     font-size: 42px;
@@ -117,7 +108,6 @@ header nav a {
 header nav a:hover {
     background-color: #1d73ad;
 }
-
 h2 {
     font-size: 34px;
     text-transform: uppercase;
@@ -125,19 +115,55 @@ h2 {
     line-height: 2;
     color: #2c3e50;
 }
-
 p, abbr  {
     line-height: 3;
     color: #7f8c8d;
-}
-abbr {
     cursor: default;
+}
+a.button {
+    position: relative;
+    overflow: visible;
+    display: inline-block;
+    padding: 0.5em 1em;
+    border: 1px solid #d4d4d4;
+    margin: 0;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 1px 1px 0 #fff;
+    font: 16px/normal sans-serif;
+    color: #900;
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    background-color: #ececec;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+    background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+    background-image: -ms-linear-gradient(#f4f4f4, #ececec);
+    background-image: -o-linear-gradient(#f4f4f4, #ececec);
+    background-image: linear-gradient(#f4f4f4, #ececec);
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    border-radius: 0.2em;
+    zoom: 1;
+}
+a.button:hover {
+    border-color: #b53f3a;
+    border-bottom-color: #a0302a;
+    color: #fff;
+    background-color: #dc5f59;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dc5f59), to(#b33630));
+    background-image: -moz-linear-gradient(#dc5f59, #b33630);
+    background-image: -ms-linear-gradient(#dc5f59, #b33630);
+    background-image: -o-linear-gradient(#dc5f59, #b33630);
+    background-image: linear-gradient(#dc5f59, #b33630);
+}
+.pull-right {
+    float:right;
 }
 .wrapper {
     width: 800px;
     margin: 0 auto;
 }
-
 section {
     padding: 20px;
     margin-bottom: 40px;
@@ -154,10 +180,10 @@ section {
     max-width: 1200px;
     padding: 0 30px;
 }
-
 #dropzone h2 {
     text-align: center;
     color: #7f8c8d;
+    min-height: 68px;
 }
 #dropzone section {
     margin-bottom: 0;
@@ -171,7 +197,15 @@ section {
     -ms-transition: background-color 500ms linear;
     transition: background-color 500ms linear;
 }
-
+.dropped-info {
+    color: #00529B;
+    background-color: #BDE5F8;
+    -webkit-transition: background-color 500ms linear;
+    -moz-transition: background-color 500ms linear;
+    -o-transition: background-color 500ms linear;
+    -ms-transition: background-color 500ms linear;
+    transition: background-color 500ms linear;
+}
 .dropped-error {
     color: #D8000C;
     background-color: #FFBABA;
@@ -181,7 +215,6 @@ section {
     -ms-transition: background-color 500ms linear;
     transition: background-color 500ms linear;
 }
-
 .drop-here {
     display: block;
 }
@@ -205,7 +238,6 @@ section {
     -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
-
 @media screen and (max-width: 480px) {
     #timeline,
     #dropzone {
@@ -220,8 +252,6 @@ section {
         width: 100%;
     }
 }
-
-
 /* Sticky Header Style */
 /* ---------------------------------------- */
 body.sticky-header {

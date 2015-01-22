@@ -5,19 +5,18 @@ var path            = require('path')
 var bodyParser      = require('body-parser');
 var multer          = require('multer');
 
-// for testing
-var homeController = require('./app/Controllers/HomeController')
-// Main apiController
-var image = require('./app/Controllers/ImageController')
-
+process.env.TMPDIR = path.join(__dirname, 'tmp');
+app.use(multer());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// Main apiController
+var image = require('./controllers/imageController')
 app.use('/api', image);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
