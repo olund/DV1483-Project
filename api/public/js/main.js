@@ -45,16 +45,16 @@ $(document).ready(function($) {
             doc.on('dragleave', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
+                holder.find('section h2').text('Drop image here');
             });
-
 
             holder.on('dragenter', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 holder.addClass('hover');
+                holder.find('section h2').text('Release');
                 return false;
             });
-
             holder.on('dragleave', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
@@ -90,7 +90,7 @@ $(document).ready(function($) {
                         }, 500);
                         setTimeout(function () {
                             holder.fadeOut('slow', function() {
-                                $(this).removeClass('dropped').find('section h2').text('Drop image here');
+                                $(this).find('section').removeClass('dropped').find('h2').text('Drop image here');
                             });
                         }, 3000);
                     },
