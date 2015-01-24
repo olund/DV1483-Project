@@ -4,23 +4,26 @@
     "password": null,
     "database": "test",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "dialectOptions" : {
+        "insecureAuth": true
+    }
   },
   "test": {
-    "username": "jokd13",
-    "password": "qv}K6[dL",
-    "database": "jokd13",
-    "host": "blu-ray.student.bth.se",
+    "username": "root",
+    "password": null,
+    "database": "",
+    "host": "",
     "dialect" : "mysql",
     "dialectOptions" : {
         "insecureAuth": true
     }
   },
   "production": {
-    "username": "jokd13",
-    "password": "qv}K6[dL",
-    "database": "jokd13",
-    "host": "blu-ray.student.bth.se",
+    "username": "",
+    "password": null,
+    "database": "",
+    "host": "",
     "dialect" : "mysql",
     "dialectOptions" : {
         "insecureAuth": true
