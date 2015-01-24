@@ -61,7 +61,7 @@ Changes the settings for **your** [DNS](http://en.wikipedia.org/wiki/Data_source
 i.e Host, Username and Password
 
 ```
-$ vim config/database.json
+$ vim config/config.json
 ```
 
 ### Step five
