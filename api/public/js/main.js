@@ -3,19 +3,18 @@ $(document).ready(function($) {
 
     window.myGram = {
         current : 0,
-        holder  : $('#dropzone'),
 
         init : function() {
             if (!window.location.origin)
-                    window.location.origin = window.location.protocol+"//"+window.location.host;
+                    window.location.origin = window.location.protocol + "//" + window.location.host;
 
-            var timerId,
-                csrftoken = this.getCookie('csrftoken'),
-                self = this,
-                holder  = $('#dropzone'),
-                doc     = $(document),
-                section = $('#timeline'),
-                w       = $(window);
+            var
+                csrftoken   = this.getCookie('csrftoken'),
+                self        = this,
+                holder      = $('#dropzone'),
+                doc         = $(document),
+                section     = $('#timeline'),
+                w           = $(window);
 
             $.ajaxSetup({
                 crossDomain: false, // obviates need for sameOrigin test
@@ -26,9 +25,8 @@ $(document).ready(function($) {
                 }
             });
 
-            /* Removes default behavior for document
-             * on drop event and drag
-            */
+            // Removes default behavior for document
+            // on drop event and drag
             doc.on('drop', function (e) {
                 e.stopPropagation();
                 e.preventDefault();
@@ -45,21 +43,25 @@ $(document).ready(function($) {
             doc.on('dragleave', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-                holder.find('section h2').text('Drop image here');
+                holder
+                    .find('section h2')
+                    .text('Drop image here');
             });
+            // END
 
             holder.on('dragenter', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 holder.addClass('hover');
-                holder.find('section h2').text('Release');
-                return false;
+                holder
+                    .find('section h2')
+                    .text('Release');
             });
+
             holder.on('dragleave', function(e) {
                 e.stopPropagation();
                 e.preventDefault();
                 holder.removeClass('hover');
-                return false;
             });
 
             // This is also the upload event
@@ -67,12 +69,13 @@ $(document).ready(function($) {
                 e.stopPropagation();
                 e.preventDefault();
 
-                holder.removeClass('hover')
-                    .find('section h2')
-                    .text('Uploading...');
-
                 var file     = e.originalEvent.dataTransfer.files[0],
                     formData = new FormData();
+
+                holder
+                    .removeClass('hover')
+                    .find('section h2')
+                    .text('Uploading...');
 
                 formData.append('file', file);
 
@@ -83,12 +86,15 @@ $(document).ready(function($) {
                     processData: false,
                     contentType: false,
                     success : function(response) {
-                        holder.find('section').addClass('dropped');
+                        holder
+                            .find('section')
+                            .addClass('dropped');
 
                         setTimeout(function () {
                             $('section h2').text('Success!');
+                            section.empty();
                             self.current = 0;
-                            self.refresh(0, false, 600, 10);
+                            self.refresh(false, 600, 10);
                         }, 500);
 
                         setTimeout(function () {
@@ -101,10 +107,13 @@ $(document).ready(function($) {
                             });
                         }, 500);
                     },
-                    error : function(xhr, ajaxOptions, thrownError) {
-                        console.log("error: " + thrownError);
-                        holder.find('section').addClass('dropped-error')
-                            .find('h2').text('Failed!');
+                    error : function(thrownError) {
+                        console.log(thrownError);
+                        holder
+                            .find('section')
+                            .addClass('dropped-error')
+                            .find('h2')
+                            .text('Failed!');
                     }
                 });
 
@@ -119,10 +128,8 @@ $(document).ready(function($) {
         },
 
         refresh: function (current, prepend, mili) {
-            var milisec = mili || 1500;
-            var pend = prepend || false;
-            console.log(pend);
-            console.log("current: " + this.current);
+            var milisec = mili || 1500,
+                pend    = prepend || false;
 
             $.ajax({
                 url: '/api/' + this.current + '/' + 10,
@@ -130,15 +137,19 @@ $(document).ready(function($) {
                 Type: 'json',
             })
             .done(function(data) {
-                console.log(data);
-                console.log("prev current " + window.myGram.current);
-                // jquery is best int the world. neede d to select my global object....
+                // jquery is best in the world. needed to select my global object....
                 // love jshell
                 window.myGram.current += data[data.length - 1].results;
-                console.log("after current " + window.myGram.current);
+
                 jQuery.each(data, function(i, data) {
                     if (data.id) {
-                        var button = $('<a>', {'data-id': data.id, 'text': 'Report', 'class' : 'pull-right button'})
+                        var button = $('<a>', {
+                                'data-id': data.id,
+                                'text': 'Report',
+                                'class' : 'pull-right button'
+                            })
+                            // I should refactor this so that I only have one event listener
+                            // for the buttons
                             .on('click', function(event) {
                                 $.ajax({
                                     url: '/api/report/' + $(this).data('id'),
@@ -166,11 +177,17 @@ $(document).ready(function($) {
 
                         var ele =  $('<section class="content">').hide()
                                 .append(
-                                    $('<img />').attr({src : window.location.origin + '/' +  data.path})
+                                    $('<img />').attr({
+                                        src : window.location.origin + '/' +  data.path
+                                    })
                                 )
                                 .append(
-                                        $('<abbr>', {'class': data.createdAt, 'text': jQuery.timeago(data.createdAt)})
-                                ).append(button)
+                                        $('<abbr>', {
+                                            'class': data.createdAt,
+                                            'text': jQuery.timeago(data.createdAt)
+                                        })
+                                )
+                                .append(button)
                                 .fadeIn(milisec);
 
                         if (pend === true) {
@@ -183,7 +200,6 @@ $(document).ready(function($) {
             })
             .fail(function() {
                 $('#timeline').text('Failed to load files');
-                console.log("error");
             });
         },
 
@@ -195,7 +211,7 @@ $(document).ready(function($) {
 
         getCookie: function (name) {
             var cookieValue = null;
-            if (document.cookie && document.cookie != '') {
+            if (document.cookie && document.cookie !== '') {
                 var cookies = document.cookie.split(';');
                 for (var i = 0; i < cookies.length; i++) {
                     var cookie = jQuery.trim(cookies[i]);
@@ -210,16 +226,15 @@ $(document).ready(function($) {
         },
 
         displayDropzone : function (ele) {
-            $("html, body").animate({ scrollTop: 0 }, "slow");
+            $("html, body").animate({
+                    scrollTop: 0
+                }, "slow");
+
             ele.fadeIn('slow', function () {
                 $(this).addClass('drop-here');
             });
         },
-
-        status :  function(message) {
-            $('<div class="flashy-success">').text(message).append('#timeline');
-        }
-    }
+    };
 
     myGram.init();
     myGram.refresh(10, 0);
