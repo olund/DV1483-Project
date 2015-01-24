@@ -1,13 +1,10 @@
 {
   "development": {
-    "username": "jokd13",
-    "password": "qv}K6[dL",
-    "database": "jokd13",
-    "host": "blu-ray.student.bth.se",
-    "dialect": "mysql",
-    "dialectOptions" : {
-        "insecureAuth": true
-    }     
+    "username": "root",
+    "password": null,
+    "database": "test",
+    "host": "localhost",
+    "dialect": "mysql"
   },
   "test": {
     "username": "jokd13",
@@ -17,7 +14,7 @@
     "dialect" : "mysql",
     "dialectOptions" : {
         "insecureAuth": true
-    } 
+    }
   },
   "production": {
     "username": "jokd13",
@@ -27,6 +24,6 @@
     "dialect" : "mysql",
     "dialectOptions" : {
         "insecureAuth": true
-    } 
-  } 
+    }
+  }
 }
