@@ -64,7 +64,7 @@ i.e Host, Username and Password
 $ vim config/config.json
 ```
 
-### Step five
+#### Step five
 Start the server. 
 
 ```
@@ -73,7 +73,7 @@ $ npm start
 
 If you got any errors when running *start* command, please check npm-debug log.
 
-### Step six
+#### Step six
 Enjoy Birca at port 8019!
 
 If you planning on running Birca forever please check out this
