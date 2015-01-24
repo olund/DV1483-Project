@@ -19,10 +19,11 @@ app.get('/:offset/:limit', function(req, res) {
         })
     .then(function(images) {
         images.push({
-                results: Object.keys(images).length - 1,
+                results: Object.keys(images).length,
         });
+	var data = JSON.stringify(images);
         res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(images));
+        res.end(data);
     });
 });
 
@@ -31,7 +32,7 @@ app.post('/', function(req,res) {
         serverPath  = '/uploads/'  +  rng.split('.').join('') + req.files.file.name,
         saveDir     =  __dirname + '/../public/',
         dir = saveDir + serverPath;
-
+    console.log("my pos", __dirname);
     require('fs').rename(
         req.files.file.path,
         dir,

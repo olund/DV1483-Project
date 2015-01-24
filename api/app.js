@@ -5,7 +5,9 @@ var path            = require('path')
 var bodyParser      = require('body-parser');
 var multer          = require('multer');
 
+// Setting up the temp directory for images
 process.env.TMPDIR = path.join(__dirname, 'tmp');
+
 app.use(multer());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());

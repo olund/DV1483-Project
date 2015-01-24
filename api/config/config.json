@@ -1,23 +1,32 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "jokd13",
+    "password": "qv}K6[dL",
+    "database": "jokd13",
+    "host": "blu-ray.student.bth.se",
+    "dialect": "mysql",
+    "dialectOptions" : {
+        "insecureAuth": true
+    }     
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "jokd13",
+    "password": "qv}K6[dL",
+    "database": "jokd13",
+    "host": "blu-ray.student.bth.se",
+    "dialect" : "mysql",
+    "dialectOptions" : {
+        "insecureAuth": true
+    } 
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
+    "username": "jokd13",
+    "password": "qv}K6[dL",
+    "database": "jokd13",
+    "host": "blu-ray.student.bth.se",
+    "dialect" : "mysql",
+    "dialectOptions" : {
+        "insecureAuth": true
+    } 
+  } 
 }
