@@ -108,6 +108,10 @@ header nav a {
 header nav a:hover {
     background-color: #1d73ad;
 }
+footer {
+    text-align: center;
+    font-size: 10px;
+}
 h2 {
     font-size: 34px;
     text-transform: uppercase;
@@ -229,7 +233,10 @@ section {
 }
 #timeline img {
     display: block;
-    margin:0 auto;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
     max-width: 100%;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
