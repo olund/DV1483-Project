@@ -30,7 +30,7 @@ Before you start this guide, make sure that you have this installed
 Download Birca from Github.com.
 
 ```
-$ git clone git@github.com:foikila/DV1483-Javascript.git Birca
+$ git clone git@github.com:foikila/DV1483-Project.git Birca
 ```
 
 #### Step two
