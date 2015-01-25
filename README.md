@@ -93,7 +93,7 @@ If you planning on running Birca forever please check out this
 
 ## History
 
-v0.0.x (Latest)
+v0.0.2 (2015-01-15)
 * Correct minor mistakes in README.md
 * Removed console logs that wasn't useful 
 * Minor changes in index.html
