@@ -19,6 +19,7 @@ with better code.
 This guide explains how to install Birca on your Debian 7 server.
 
 ### Dependencies
+
 Before you start this guide, make sure that you have this installed
 * [Node.js](http://nodejs.org/)
 * [NPM](http://nodejs.org/)
@@ -50,6 +51,7 @@ $ cd Birca/api/ && npm install
 ```
 
 #### Step four
+
 Setting up the database. Default is mysql and that is what I use, but you can easily 
 change it to these databases.
 * MySQL
@@ -57,30 +59,42 @@ change it to these databases.
 * SQLite
 * PostgeSQ
 
-Changes the settings for **your** [DNS](http://en.wikipedia.org/wiki/Data_source_name)
-i.e Host, Username and Password
+Changes the settings for **your** [DSN](http://en.wikipedia.org/wiki/Data_source_name)
+i.e Host, Username and Password.
 
 ```
 $ vim config/config.json
 ```
 
+Read more about the [ORM](http://en.wikipedia.org/wiki/Object-relational_mapping) i use [here](sequelizejs.com).
+ 
 #### Step five
+
 Start the server. 
 
 ```
 $ npm start
 ```
 
-If you got any errors when running *start* command, please check npm-debug log.
+If you got any errors when running *start* command, please check npm-debug log to find out what the error is. 
+if you can't figure out the error yourself, please post an issue and I can help you.
 
 #### Step six
-Enjoy Birca at port 8019!
+Enjoy Birca at port 8019! 
+
+To change the port edit the www-file.
+```
+$ vim/bin/www
+```
 
 If you planning on running Birca forever please check out this
-[guide](https://www.digitalocean.com/community/tutorials/how-to-host-multiple-node-js-applications-on-a-single-vps-with-nginx-forever-and-crontab)
+[guide](https://www.digitalocean.com/community/tutorials/how-to-host-multiple-node-js-applications-on-a-single-vps-with-nginx-forever-and-crontab).
 
 
 ## History
+
+v0.0.x (Latest)
+* Correct minor mistakes in README.md
 
 v0.0.1 (2015-01-24)
 * First alpha release
