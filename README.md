@@ -95,6 +95,8 @@ If you planning on running Birca forever please check out this
 
 v0.0.x (Latest)
 * Correct minor mistakes in README.md
+* Removed console logs that wasn't useful 
+* Minor changes in index.html
 
 v0.0.1 (2015-01-24)
 * First alpha release
