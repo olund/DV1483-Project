@@ -84,7 +84,7 @@ Enjoy Birca at port 8019!
 
 To change the port edit the www-file.
 ```
-$ vim/bin/www
+$ vim bin/www
 ```
 
 If you planning on running Birca forever please check out this
