@@ -5,8 +5,7 @@ var app         = express.Router();
 var models      = require('../models');
 
 app.get('/:offset/:limit', function(req, res) {
-    console.log("---------------------------GET-Request time: " + Date.now());
-    console.log("offset: " +  req.param('offset'), "limit: " + req.param('limit'));
+    // query the database
     models.image.findAll({
         offset : req.param('offset'),
         limit : req.param('limit'),
@@ -28,10 +27,10 @@ app.get('/:offset/:limit', function(req, res) {
 });
 
 app.post('/', function(req,res) {
-    console.log("---------------------------POST-Request time: " + Date.now());
     var rng         = (Math.random() * 100).toString(),
+        now         = Date.now(),
+        saveDir     = __dirname + '/../public/',
         serverPath  = '/uploads/'  +  rng.split('.').join('') + req.files.file.name,
-        saveDir     =  __dirname + '/../public/',
         dir = saveDir + serverPath;
 
     require('fs').rename(
@@ -46,8 +45,8 @@ app.post('/', function(req,res) {
             models.image.create({
                 path : serverPath,
                 reports: 0,
-                createAt : Date.now(),
-                updateAt : Date.now(),
+                createAt : now,
+                updateAt : now,
             }).success(function() {
                 done = true;
             });
@@ -58,16 +57,14 @@ app.post('/', function(req,res) {
 });
 
 app.put('/report/:id', function(req, res) {
-    var _id = req.param('id');
-    console.log('put on : ' + _id);
-    models.image.find(_id)
+    models.image.find(req.param('id'))
         .then(function (img) {
             if (img) {
                 img.updateAttributes({
                     reports : img.dataValues.reports + 1,
                     uploaded: Date.now(),
                 }).success(function() {
-                    res.end('Reported ' + _id + '!');
+                    res.end('Reported ' + req.param('id') + '!');
                 }).fail(function () {
                      res.status(500).end();
                 });
