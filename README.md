@@ -10,7 +10,7 @@ Blekinge Institute of Technology 2014/2015 in the course DV1483
 When I implemented Birca I wanted to explore new technologies, and that I did.
 Both on the server-side and on the client-side built in JavaScript. NodeJS powers 
 the service-side with Expressjs as framework. And the client-side is built in
-nativ js and  jQuery. This is the first app that I have built in Expressjs so 
+native js and  jQuery. This is the first app that I have built in Expressjs so 
 please comment the code if I have done some huge mistake or do a pull-request 
 with better code. 
 
